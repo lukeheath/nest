@@ -51,8 +51,10 @@ export class SseStream extends Transform {
   }
 
   pipe<T extends HeaderStream>(destination: T, options?: { end?: boolean }): T {
+    console.log('destination: ', destination);
     if (destination.writeHead) {
       destination.writeHead(200, {
+        'Access-Control-Allow-Origin': '*',
         // See https://github.com/dunglas/mercure/blob/master/hub/subscribe.go#L124-L130
         'Content-Type': 'text/event-stream',
         Connection: 'keep-alive',
